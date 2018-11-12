@@ -1,4 +1,7 @@
+<img src="https://github.com/sborquez/CellsAtWork/blob/master/assets/header.png?raw=true">
+
 # Aplicación de modelos de clasificación para la identificación de células sanguíneas
+
 
 Integrantes:
 * Sebastián Bórquez González [:e-mail:](mailto:sebastian.borquez@sansano.usm.cl)
@@ -6,6 +9,11 @@ Integrantes:
 * John Rodriguez Mora [:e-mail:](mailto:john.rodriguez@sansano.usm.cl)
 
 ## Objetivo
+
+<center>
+<img src="https://github.com/sborquez/CellsAtWork/blob/master/assets/cells_sample.jpg?raw=true" width=300 height=300 class="center">
+</center>
+
 
 Aplicar modelos de clasificación de objetos para la detección y clasificación de eritrocitos, leucocitos y trombocitos en imágenes sanguíneas para la facilitación del conteo de células y/o detección de enfermedades.
 
