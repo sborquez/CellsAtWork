@@ -39,7 +39,9 @@ _images = os.listdir(path.join(bccd_folder, "Annotations"))
 for i, image_annotation  in tqdm(enumerate(_images), total=len(_images)):
     tree = ET.parse(path.join(bccd_folder, "Annotations", image_annotation))
     root = tree.getroot()
-    image = path.join(bccd_folder, "ImageSets", root.find("filename").text)
+    image = path.join(bccd_folder, "JPEGImages", root.find("filename").text)
+    if path.splitext(image)[1] == "":
+        image += ".jpg"
     for cell in root.iter("object"):
         name = cell.find("name").text
         box = {i.tag:int(i.text) for i in cell.find("bndbox").iter() if i.tag != "bndbox"}
