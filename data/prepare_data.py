@@ -45,7 +45,9 @@ for i, image_annotation  in tqdm(enumerate(_images), total=len(_images)):
     for cell in root.iter("object"):
         name = cell.find("name").text
         box = {i.tag:int(i.text) for i in cell.find("bndbox").iter() if i.tag != "bndbox"}
-        if i%_splitter:
+        if box["xmin"] == box["xmax"] or box["ymin"] == box["ymax"]:
+            continue
+        elif i%_splitter:
             train_writer.writerow({"image": image, "name":name, **box})
         else:
             test_writer.writerow({"image": image, "name":name, **box})
