@@ -1,4 +1,4 @@
+output/*
 *.jpg
-*.jpeg
 *.weights
 *.h5

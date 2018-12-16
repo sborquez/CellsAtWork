@@ -9,11 +9,12 @@ from utils.bbox import draw_boxes
 from keras.models import load_model
 from tqdm import tqdm
 import numpy as np
+from collections import Counter
 
 def _main_(args):
-    config_path  = args.conf
-    input_path   = args.input
-    output_path  = args.output
+    config_path  = args["conf"]
+    input_path   = args["input"]
+    output_path  = args["output"]
 
     with open(config_path) as config_buffer:    
         config = json.load(config_buffer)
@@ -111,8 +112,6 @@ def _main_(args):
         # the main loop
         for image_path in image_paths:
             image = cv2.imread(image_path)
-            print(image_path)
-            print(image_paths)
 
             # predict the bounding boxes
             boxes = get_yolo_boxes(infer_model, [image], net_h, net_w, config['model']['anchors'], obj_thresh, nms_thresh)[0]
@@ -123,6 +122,7 @@ def _main_(args):
             # write the image with bounding boxes to file
             cv2.imwrite(output_path + image_path.split('/')[-1], np.uint8(image))         
 
+            return boxes
 if __name__ == '__main__':
     argparser = argparse.ArgumentParser(description='Predict with a trained yolo model')
     argparser.add_argument('-c', '--conf', help='path to configuration file')
@@ -130,4 +130,12 @@ if __name__ == '__main__':
     argparser.add_argument('-o', '--output', default='output/', help='path to output directory')   
     
     args = argparser.parse_args()
-    _main_(args)
+
+    args = {"conf": "config.json", 'input': 'train_image_folder/BloodImage_00010.jpg', 'output': 'output/'}
+
+    boxes = _main_(args)
+
+    cells = list(filter(lambda c: c.get_score() > 0.5,boxes))
+    cont = Counter(map(lambda x: x.get_label(),cells))
+    labels = {0: "plaqueta", 1:"Celula blanca", 2:"Celula roja"}
+    
