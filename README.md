@@ -2,6 +2,7 @@
 
 # Aplicación de modelos de clasificación para la identificación de células sanguíneas
 
+**Para ejecutar**: Entrar a la carpeta interface y ejecutar el comando **python interface.py** por terminal.
 
 Integrantes:
 * Sebastián Bórquez González [:e-mail:](mailto:sebastian.borquez@sansano.usm.cl)
